@@ -88,11 +88,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/xtended/config/permissions/xtended-sysconfig.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/xtended-sysconfig.xml
 
-# Device Personalization Services Permission
-PRODUCT_COPY_FILES += \
-    vendor/xtended/config/permissions/com.google.android.as.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.google.android.as.xml \
-    vendor/xtended/config/permissions/com.google.android.as.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.google.android.as.xml
-
 # Copy all Xtended-specific init rc files
 $(foreach f,$(wildcard vendor/xtended/prebuilt/common/etc/init/*.rc),\
 	$(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_SYSTEM)/etc/init/$(notdir $f)))
@@ -128,8 +123,6 @@ include vendor/xtended/config/aosp_audio.mk
 # Include Xtended audio files
 include vendor/xtended/config/xtended_audio.mk
 
-# Include Vendor Xtras
-include vendor/xtras/xtras.mk
 
 # Bootanimation
 include vendor/xtended/config/bootanimation.mk
@@ -152,13 +145,9 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 
 # Xtended packages
 PRODUCT_PACKAGES += \
-    ThemePicker \
     Calculator \
     BluetoothExt \
-    ExactCalculator \
-    OmniJaws \
-    OmniStyle \
-    StitchImage
+    ThemePicker 
 
 # Cutout control overlays
 PRODUCT_PACKAGES += \
@@ -257,11 +246,6 @@ DEVICE_PACKAGE_OVERLAYS += vendor/xtended/overlay/common
 
 # Allow overlays to be excluded from enforcing RRO
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/xtended/overlay
-
-# Gapps
-ifeq ($(WITH_GAPPS),true)
-include vendor/gapps/config.mk
-endif
 
 # Enable ccache
 USE_CCACHE := true
